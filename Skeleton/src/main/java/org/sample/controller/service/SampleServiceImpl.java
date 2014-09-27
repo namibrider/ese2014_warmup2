@@ -41,6 +41,7 @@ public class SampleServiceImpl implements SampleService {
         user.setEmail(signupForm.getEmail());
         user.setLastName(signupForm.getLastName());
         user.setAddress(address);
+        user.setTeamName(signupForm.getTeamName());
         
         user = userDao.save(user);   // save object to DB
         
@@ -84,5 +85,11 @@ public class SampleServiceImpl implements SampleService {
         Iterable<TeamName> teamNames = teamNameDao.findAll();
 
         return teamNames;
+    }
+
+    @Transactional
+    public User getUserById(Long id) {
+        User user = userDao.findOne(id);
+        return user;
     }
 }

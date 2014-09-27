@@ -1,5 +1,7 @@
 package org.sample.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.sample.controller.exceptions.InvalidUserException;
@@ -9,8 +11,10 @@ import org.sample.controller.service.SampleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -59,7 +63,7 @@ public class IndexController {
     	if (!result.hasErrors()) {
             try {
             	sampleService.saveTeamName(saveTeamName);
-            	model = new ModelAndView("show");
+            	model = new ModelAndView("teamConf");
             } catch (InvalidUserException e) {
             	model = new ModelAndView("index");
             	model.addObject("page_error", e.getMessage());
@@ -70,6 +74,17 @@ public class IndexController {
     	return model;
     }
     
+    @RequestMapping(value = "/profile", method = RequestMethod.GET)
+     public ModelAndView getUserByRequestParamInTheUrl(@RequestParam(value="userId", required=true) Long userId, HttpServletRequest request,  
+            HttpServletResponse response) { 
+    	ModelAndView model = new ModelAndView("profile");
+        model.addObject("user", sampleService.getUserById(userId));
+        
+        return model;
+    }   
+     
+    
+     
     @RequestMapping(value = "/security-error", method = RequestMethod.GET)
     public String securityError(RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("page_error", "You do have have permission to do that!");
