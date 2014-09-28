@@ -27,9 +27,9 @@ public class IndexController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index() {
-    	ModelAndView model = new ModelAndView("index");
-    	model.addObject("signupForm", new SignupForm());
+    	ModelAndView model = new ModelAndView("index");        
         model.addObject("allTeams", sampleService.getAllTeamNames());
+    	model.addObject("signupForm", new SignupForm());
         return model;
     }
 

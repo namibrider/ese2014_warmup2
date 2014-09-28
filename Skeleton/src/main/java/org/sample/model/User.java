@@ -4,7 +4,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 
@@ -13,22 +13,25 @@ public class User {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Long userId;
 
     private String firstName;
     private String lastName;
     private String email;
-    private String teamName;
-   
+    
+    @ManyToOne
+    private TeamName teamName;
+
+    
     @OneToOne(cascade = {CascadeType.ALL})
     private Address address; 
     
-    public Long getId() {
-        return id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getFirstName() {
@@ -55,14 +58,7 @@ public class User {
         this.email = email;
     }
     
-    public String getTeamName() {
-    return teamName;
-    }
-
-    public void setTeamName(String teamName) {
-        this.teamName = teamName;
-    }
-
+   
 	public Address getAddress() {
 		return address;
 	}
@@ -71,6 +67,14 @@ public class User {
 		this.address = address;
 	}
 
+        
+    public TeamName getTeamName() {
+        return teamName;
+    }
+
+    public void setTeamName(TeamName teamName) {
+        this.teamName = teamName;
+    }
     
 	
 	

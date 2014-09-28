@@ -1,7 +1,5 @@
 package org.sample.controller.service;
 
-import java.sql.Timestamp;
-import java.util.List;
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SaveTeamNameForm;
 import org.sample.controller.pojos.SignupForm;
@@ -22,6 +20,7 @@ public class SampleServiceImpl implements SampleService {
 
     @Autowired    UserDao userDao;
     @Autowired    AddressDao addDao;
+    @Autowired    TeamNameDao teamNameDao;
     
     @Transactional
     public SignupForm saveFrom(SignupForm signupForm) throws InvalidUserException{
@@ -37,27 +36,32 @@ public class SampleServiceImpl implements SampleService {
         address.setStreet("TestStreet-foo");
         
         User user = new User();
+        //TeamName teamName = new TeamName();
+        //(teamName.getUsers()).add(user);
         user.setFirstName(signupForm.getFirstName());
         user.setEmail(signupForm.getEmail());
         user.setLastName(signupForm.getLastName());
         user.setAddress(address);
-        user.setTeamName(signupForm.getTeamName());
+        user.setTeamName(getTeamNameById(signupForm.getTeamId()));
+        
+        
         
         user = userDao.save(user);   // save object to DB
+        //teamName = teamNameDao.save(teamName);
         
         
         // Iterable<Address> addresses = addDao.findAll();  // find all 
         // Address anAddress = addDao.findOne((long)3); // find by ID
         
         
-        signupForm.setId(user.getId());
+        signupForm.setUserId(user.getUserId());
+        //signupForm.setTeamNameId(user.getTeamName().getTeamId());
 
         return signupForm;
 
     }
 
-    
-    @Autowired    TeamNameDao teamNameDao;
+
     
     @Transactional
     public SaveTeamNameForm saveTeamName(SaveTeamNameForm saveTeamNameForm) throws InvalidUserException{
@@ -75,21 +79,28 @@ public class SampleServiceImpl implements SampleService {
         team = teamNameDao.save(team);   // save object to DB
         
                 
-        saveTeamNameForm.setId(team.getId());
+        saveTeamNameForm.setId(team.getTeamId());
 
-        return saveTeamNameForm;}
+        return saveTeamNameForm;
+    }
     
     @Transactional
     public Iterable<TeamName> getAllTeamNames(){
         
-        Iterable<TeamName> teamNames = teamNameDao.findAll();
+        return teamNameDao.findAll();
 
-        return teamNames;
     }
+    
+    
+    @Transactional
+    public TeamName getTeamNameById(Long id){
+        
+        return teamNameDao.findOne(id);
+    }
+      
 
     @Transactional
     public User getUserById(Long id) {
-        User user = userDao.findOne(id);
-        return user;
+        return userDao.findOne(id);
     }
 }

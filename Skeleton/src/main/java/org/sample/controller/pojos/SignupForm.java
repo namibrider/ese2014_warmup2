@@ -2,14 +2,15 @@ package org.sample.controller.pojos;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import org.sample.model.TeamName;
 
 public class SignupForm {
 
 
-    private Long id;
+    private Long userId;
     private String firstName;
     private String lastName;
-    private String teamName;
+    private Long teamId;
 
 
     @NotNull
@@ -41,19 +42,19 @@ public class SignupForm {
         this.email = email;
     }
 
-    public Long getId() {
-        return id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
     
-    public String getTeamName() {
-    return teamName;
+    public Long getTeamId() {
+    return teamId;
     }
 
-    public void setTeamName(String teamName) {
-        this.teamName = teamName;
+    public void setTeamId(Long teamNameId) {
+        this.teamId = teamNameId;
     }
 }

@@ -43,8 +43,8 @@
         <div class="control-group<c:if test="${not empty teamNameErrors}"> error</c:if>">
             <label class="control-label" for="field-teamName">Team Name</label>            
             <div class="controls">  
-                  <form:select path="teamName">         
-                    <form:options items="${allTeams}" var="allTeams" itemValue="teamName" itemLabel="teamName"/>
+                  <form:select path="teamId">         
+                    <form:options items="${allTeams}" var="allTeams" itemValue="teamId" itemLabel="teamName"/>
                   </form:select> 
                   <p>
                   <a  href="/Skeleton/team">Neues Team erfassen</a>
