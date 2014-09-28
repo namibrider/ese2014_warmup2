@@ -55,7 +55,6 @@ public class SampleServiceImpl implements SampleService {
         
         
         signupForm.setUserId(user.getUserId());
-        //signupForm.setTeamNameId(user.getTeamName().getTeamId());
 
         return signupForm;
 
