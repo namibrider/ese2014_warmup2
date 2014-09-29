@@ -21,11 +21,11 @@
 		</tr>
 
                 <tr>
-                        <td><c:out value="${user.id}" /></td>
+                        <td><c:out value="${user.userId}" /></td>
                         <td><c:out value="${user.firstName}" /></td>
                         <td><c:out value="${user.lastName}" /></td>
                         <td><c:out value="${user.email}" /></td>
-                        <td><c:out value="${user.teamName}" /></td>
+                        <td><c:out value="${user.teamName.teamName}" /></td>
                 </tr>
 		
 	</table>
