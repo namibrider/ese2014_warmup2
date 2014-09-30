@@ -20,7 +20,7 @@ public class User {
     private String email;
     
     @ManyToOne
-    private TeamName teamName;
+    private Team team;
 
     
     @OneToOne(cascade = {CascadeType.ALL})
@@ -68,12 +68,12 @@ public class User {
 	}
 
         
-    public TeamName getTeamName() {
-        return teamName;
+    public Team getTeam() {
+        return team;
     }
 
-    public void setTeamName(TeamName teamName) {
-        this.teamName = teamName;
+    public void setTeam(Team team) {
+        this.team = team;
     }
     
 	

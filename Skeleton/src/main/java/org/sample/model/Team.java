@@ -11,7 +11,7 @@ import javax.persistence.OneToMany;
 
 
 @Entity
-public class TeamName implements java.io.Serializable{
+public class Team implements java.io.Serializable{
 
     @Id
     @GeneratedValue

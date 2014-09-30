@@ -4,10 +4,10 @@ import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SaveTeamNameForm;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.model.Address;
-import org.sample.model.TeamName;
+import org.sample.model.Team;
 import org.sample.model.User;
 import org.sample.model.dao.AddressDao;
-import org.sample.model.dao.TeamNameDao;
+import org.sample.model.dao.TeamDao;
 import org.sample.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class SampleServiceImpl implements SampleService {
 
     @Autowired    UserDao userDao;
     @Autowired    AddressDao addDao;
-    @Autowired    TeamNameDao teamNameDao;
+    @Autowired    TeamDao teamDao;
     
     @Transactional
     public SignupForm saveFrom(SignupForm signupForm) throws InvalidUserException{
@@ -42,7 +42,7 @@ public class SampleServiceImpl implements SampleService {
         user.setEmail(signupForm.getEmail());
         user.setLastName(signupForm.getLastName());
         user.setAddress(address);
-        user.setTeamName(getTeamNameById(signupForm.getTeamId()));
+        user.setTeam(getTeamById(signupForm.getTeamId()));
         
         
         
@@ -71,11 +71,11 @@ public class SampleServiceImpl implements SampleService {
         }
 
         
-        TeamName team = new TeamName();
+        Team team = new Team();
         team.setTeamName(saveTeamNameForm.getTeamName());
         team.setTimeStampTeamCreation();
         
-        team = teamNameDao.save(team);   // save object to DB
+        team = teamDao.save(team);   // save object to DB
         
                 
         saveTeamNameForm.setId(team.getTeamId());
@@ -84,17 +84,17 @@ public class SampleServiceImpl implements SampleService {
     }
     
     @Transactional
-    public Iterable<TeamName> getAllTeamNames(){
+    public Iterable<Team> getAllTeamNames(){
         
-        return teamNameDao.findAll();
+        return teamDao.findAll();
 
     }
     
     
     @Transactional
-    public TeamName getTeamNameById(Long id){
+    public Team getTeamById(Long id){
         
-        return teamNameDao.findOne(id);
+        return teamDao.findOne(id);
     }
       
 
